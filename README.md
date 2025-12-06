@@ -1,4 +1,4 @@
-# Numbers.AI - Smart Stock Analysis Bot
+# Numbers.AI - Stock Analysis Bot
 
 Numbers.AI is an intelligent stock analysis tool designed to help long-term investors identify the best stocks to buy based on fundamental and technical analysis. The bot focuses on stocks available on Cash App and provides detailed analysis and recommendations.
 
