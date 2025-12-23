@@ -368,6 +368,102 @@ class StockAnalyzer:
         
         return max(0, min(100, score))
     
+    def calculate_profit_timing(self, stock_data: Dict) -> Dict:
+        """Calculate estimated time to reach 10-15% profit targets."""
+        try:
+            ticker = stock_data['ticker']
+            stock = yf.Ticker(ticker)
+            hist = stock.history(period='2y')  # Use 2 years for better analysis
+            
+            if hist.empty or len(hist) < 60:
+                return {
+                    'estimated_days_10_percent': 'N/A',
+                    'estimated_days_15_percent': 'N/A',
+                    'confidence_level': 'Low',
+                    'methodology': 'Insufficient historical data'
+                }
+            
+            # Calculate daily returns
+            daily_returns = hist['Close'].pct_change().dropna()
+            
+            # Calculate average daily return and volatility
+            avg_daily_return = daily_returns.mean()
+            daily_volatility = daily_returns.std()
+            
+            # Calculate trend strength (how consistent are the returns)
+            positive_days = (daily_returns > 0).sum()
+            total_days = len(daily_returns)
+            trend_consistency = positive_days / total_days
+            
+            # Estimate days to reach targets using Monte Carlo-like approach
+            # For 10% profit: log(1.10) / (avg_daily_return)
+            # For 15% profit: log(1.15) / (avg_daily_return)
+            
+            results = {}
+            
+            if avg_daily_return > 0:
+                # Base calculation on average positive return days only
+                positive_returns = daily_returns[daily_returns > 0]
+                if len(positive_returns) > 0:
+                    avg_positive_return = positive_returns.mean()
+                    
+                    # Conservative estimate (using 70% of average positive return)
+                    conservative_return = avg_positive_return * 0.7
+                    
+                    # Calculate estimated days
+                    days_10_percent = int(np.log(1.10) / conservative_return)
+                    days_15_percent = int(np.log(1.15) / conservative_return)
+                    
+                    # Adjust for trend consistency
+                    if trend_consistency > 0.55:  # Strong upward trend
+                        days_10_percent = max(1, int(days_10_percent * 0.8))
+                        days_15_percent = max(1, int(days_15_percent * 0.8))
+                        confidence = 'High'
+                    elif trend_consistency > 0.48:  # Moderate trend
+                        days_10_percent = max(1, int(days_10_percent * 1.0))
+                        days_15_percent = max(1, int(days_15_percent * 1.0))
+                        confidence = 'Medium'
+                    else:  # Weak trend
+                        days_10_percent = max(1, int(days_10_percent * 1.3))
+                        days_15_percent = max(1, int(days_15_percent * 1.3))
+                        confidence = 'Low'
+                    
+                    # Cap at reasonable maximum (2 years)
+                    days_10_percent = min(days_10_percent, 504)
+                    days_15_percent = min(days_15_percent, 504)
+                    
+                    results = {
+                        'estimated_days_10_percent': days_10_percent,
+                        'estimated_days_15_percent': days_15_percent,
+                        'confidence_level': confidence,
+                        'methodology': 'Based on historical positive return patterns and trend consistency'
+                    }
+                else:
+                    results = {
+                        'estimated_days_10_percent': 'N/A',
+                        'estimated_days_15_percent': 'N/A',
+                        'confidence_level': 'Very Low',
+                        'methodology': 'No positive return days in historical data'
+                    }
+            else:
+                results = {
+                    'estimated_days_10_percent': 'N/A',
+                    'estimated_days_15_percent': 'N/A',
+                    'confidence_level': 'Very Low',
+                    'methodology': 'Negative average historical returns'
+                }
+            
+            return results
+            
+        except Exception as e:
+            logger.warning(f"Error calculating profit timing for {stock_data.get('ticker', 'unknown')}: {e}")
+            return {
+                'estimated_days_10_percent': 'N/A',
+                'estimated_days_15_percent': 'N/A',
+                'confidence_level': 'Error',
+                'methodology': f'Calculation error: {str(e)}'
+            }
+
     def analyze_stocks(self, mode: str = "both") -> tuple[list[dict], list[dict]]:
         """
         Analyze all Cash App stocks and ETFs, returning separate recommendations.
@@ -405,6 +501,7 @@ class StockAnalyzer:
             if asset_data:
                 asset_data['is_etf'] = is_etf
                 asset_data['growth_score'] = self.calculate_growth_score(asset_data)
+                asset_data['profit_timing'] = self.calculate_profit_timing(asset_data)
                 
                 if is_etf:
                     analyzed_etfs.append(asset_data)
@@ -615,10 +712,7 @@ on Cash App for easy investing.
                 ("(Neutral)" if 30 <= float(rsi) <= 70 else "(Overbought/Oversold)"),
             f"- **MACD:** {macd_signal}",
             f"- **Price to Support:** {asset['price_to_support']:.1f}%",
-            f"- **Volume Trend:** {'↑' if asset['volume_trend'] > 0 else '↓'} {abs(asset['volume_trend']):.1f}%"
-        ])
-        
-        # Risk Assessment
+            f"- **Volume Trend:** {'↑' if asset['volume_trend'] > 0 else '↓'} {abs(asset['volume_trend']):.1f}%"])
         report.append("\n### ⚠️ Risk Assessment")
         
         # Common risk factors
