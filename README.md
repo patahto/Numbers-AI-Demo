@@ -92,7 +92,7 @@ sudo apt install -y build-essential libssl-dev zlib1g-dev \
    cd Numbers.AI
    ```
 
-2. Set up a virtual environment (recommended):
+2. Set up a virtual environment (recommended/not needed):
    ```bash
    # On Windows
    python -m venv venv
