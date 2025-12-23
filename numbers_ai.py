@@ -25,13 +25,16 @@ from dotenv import load_dotenv
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    format='%(name)s - %(message)s',
     handlers=[
         logging.FileHandler('numbers_ai.log'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger('Numbers.AI')
+
+# Reduce noisy internal logging from yfinance (e.g., 404 "Quote not found" messages)
+logging.getLogger('yfinance').setLevel(logging.CRITICAL)
 
 # Load environment variables
 load_dotenv()
@@ -45,6 +48,10 @@ class StockAnalyzer:
         self.max_debt_to_equity = 2.0  # Maximum debt-to-equity ratio
         self.min_revenue_growth = 0.1  # 10% minimum annual revenue growth
         self.analysis_period = '5y'  # 5 years of historical data
+    
+    def _is_etf(self, ticker: str, etf_symbols: List[str]) -> bool:
+        """Return True if the ticker is in the provided ETF symbol list."""
+        return ticker in etf_symbols
         
     def _get_cash_app_stocks(self):
         """Fetch list of stocks and ETFs available for analysis."""
@@ -62,6 +69,59 @@ class StockAnalyzer:
             'TDOC', 'DOCU', 'OKTA', 'TEAM', 'WDAY', 'ANET', 'NFLX', 'BABA', 'JD', 'PDD',
             'NIO', 'XPEV', 'LI', 'RIO', 'BHP', 'SHEL', 'BP', 'COP', 'EOG', 'SLB'
         ]
+        
+        # Extended universe: additional US and international large/mid-cap stocks
+        more_stocks = [
+            'BRK.B', 'KO', 'CSX', 'DHR', 'LIN', 'TTE', 'SNY', 'MDT', 'SPGI', 'ICE',
+            'EL', 'CL', 'KMB', 'GIS', 'KHC', 'MNST', 'MO', 'PM', 'DEO', 'UL',
+            'AZN', 'GSK', 'SNY', 'BMY', 'GILD', 'REGN', 'AMGN', 'ZTS', 'ISRG', 'SYK',
+            'BSX', 'EW', 'CI', 'HUM', 'ANTM', 'CNC', 'UNM', 'MET', 'PRU', 'AIG',
+            'ALL', 'TRV', 'CB', 'MMC', 'AON', 'SCHW', 'MS', 'GS', 'BAC', 'C',
+            'WFC', 'BLK', 'TROW', 'BEN', 'IVZ', 'APO', 'KKR', 'BX', 'CG', 'NTRS',
+            'STT', 'BK', 'USB', 'PNC', 'TFC', 'FITB', 'RF', 'HBAN', 'KEY', 'MTB',
+            'ZION', 'CFG', 'GLW', 'PH', 'ITW', 'ROP', 'EMR', 'ETN', 'ROK', 'DOV',
+            'XYL', 'NOC', 'LMT', 'GD', 'RTX', 'TXT', 'HII', 'BWXT', 'BAESY', 'AIR.PA',
+            'CAT', 'DE', 'AGCO', 'CNHI', 'PCAR', 'CMI', 'F', 'GM', 'STLA', 'TSM',
+            'ASML', 'NXPI', 'MCHP', 'ADI', 'ON', 'MU', 'WDC', 'STX', 'KLAC', 'LRCX',
+            'AMKR', 'CRUS', 'SWKS', 'QRVO', 'MRVL', 'MPWR', 'CDNS', 'SNPS', 'ANSS', 'KEYS',
+            'TEL', 'GLW', 'APH', 'HPE', 'HPE', 'HPQ', 'DELL', 'WDAY', 'ZEN', 'DBX',
+            'BOX', 'TEAM', 'SMAR', 'PLAN', 'ZS', 'OKTA', 'DDOG', 'ESTC', 'SPLK', 'NEWR',
+            'DT', 'PATH', 'COUR', 'UDMY', 'CHGG', 'DUOL', 'BIDU', 'NTES', 'TCEHY', 'MELI',
+            'SE', 'CPNG', 'GLBE', 'SHOP.TO', 'ADYEY', 'SPOT', 'ROKU', 'NFLX', 'DIS', 'CMCSA',
+            'LVS', 'MGM', 'WYNN', 'MAR', 'HLT', 'ABNB', 'BKNG', 'EXPE', 'RCL', 'CCL',
+            'NCLH', 'LYV', 'EA', 'TTWO', 'ATVI', 'UBI.PA', 'TCEHY', 'NTDOY', 'ROST', 'TJX',
+            'BURL', 'KSS', 'JWN', 'M', 'GPS', 'URBN', 'BBY', 'TGT', 'COST', 'WBA',
+            'CVS', 'WMT', 'DG', 'DLTR', 'KR', 'ACI', 'SFM', 'TSCO', 'LOW', 'HD',
+            'FIVE', 'ULTA', 'EL', 'NKE', 'LULU', 'UAA', 'VFC', 'PVH', 'RL', 'TIF',
+            'ZARA.MC', 'H&M-B.ST', 'ADIDY', 'PPRUY', 'CPB', 'K', 'PEP', 'KO', 'MDLZ', 'HSY',
+            'SJM', 'CAG', 'HRL', 'TSN', 'BG', 'ADM', 'COST', 'WMT', 'KR', 'GIS',
+            'CLX', 'CHD', 'KMB', 'PG', 'UL', 'EL', 'COLM', 'NWL', 'SWK', 'LEG',
+            'WHR', 'IR', 'TT', 'CARR', 'JCI', 'LEN', 'DHI', 'PHM', 'TOL', 'NVR',
+            'HD', 'LOW', 'MAS', 'MLM', 'VMC', 'EXP', 'SUM', 'OC', 'AWI', 'USG',
+            'CSX', 'NSC', 'UNP', 'CP', 'CNI', 'KSU', 'FDX', 'UPS', 'CHRW', 'JBHT',
+            'ODFL', 'XPO', 'LSTR', 'WERN', 'SNDR', 'KNX', 'SAIA', 'UAL', 'DAL', 'AAL',
+            'LUV', 'ALK', 'SAVE', 'JBLU', 'SPR', 'ERJ', 'AIR.PA', 'EADSY', 'RYAAY', 'HAPG.DE',
+            'XOM', 'CVX', 'COP', 'EOG', 'PXD', 'FANG', 'MPC', 'VLO', 'PSX', 'HES',
+            'OXY', 'APA', 'MRO', 'SLB', 'HAL', 'BKR', 'FTI', 'NOV', 'HP', 'RIG',
+            'EQNR', 'TOT', 'BP', 'SHEL', 'ENB', 'TRP', 'KMI', 'WMB', 'OKE', 'ET',
+            'EPD', 'MMP', 'PAA', 'PSXP', 'ENBL', 'AM', 'TRGP', 'SUN', 'HESM', 'NBLX',
+            'NEM', 'GOLD', 'AEM', 'KGC', 'AU', 'GFI', 'BTG', 'PAAS', 'WPM', 'FNV',
+            'RGLD', 'OR', 'SAND', 'SLW', 'FCX', 'SCCO', 'TECK', 'RIO', 'BHP', 'VALE',
+            'CLF', 'X', 'NUE', 'STLD', 'CMC', 'MT', 'SID', 'PKX', 'TX', 'GGB',
+            'AA', 'CENX', 'ACH', 'CHALF', 'MOS', 'NTR', 'CF', 'FMC', 'ICL', 'YARA.OL',
+            'ADM', 'BG', 'INGR', 'TTC', 'PAG', 'AN', 'LAD', 'SAH', 'KMX', 'AZO',
+            'ORLY', 'AAP', 'GPC', 'LKQ', 'TSLA', 'NIO', 'LI', 'XPEV', 'RIVN', 'LCID',
+            'FVRR', 'UPWK', 'TASK', 'TTD', 'MGNI', 'PUBM', 'OMC', 'IPG', 'WPP', 'OREN',
+            'CMCSA', 'CHTR', 'DISH', 'NFLX', 'PARA', 'WBD', 'FOXA', 'NWSA', 'TGNA', 'GTN',
+            'IRDM', 'LHX', 'VSAT', 'SATS', 'ASTS', 'GSAT', 'SPCE', 'RKLB', 'MAXR', 'PL',
+            'IBM', 'ACN', 'CTSH', 'INFY', 'WIT', 'TCS.NS', 'HCLTECH.NS', 'TECHM.NS', 'LTI.NS', 'MPG.DE',
+            'SAP', 'ADBE', 'CRM', 'ORCL', 'INTU', 'PAYC', 'PCTY', 'PAYX', 'GPN', 'FIS',
+            'FISV', 'FLT', 'MA', 'V', 'PYPL', 'SQ', 'AFRM', 'UPST', 'SOFI', 'NU',
+            'HSBC', 'BCS', 'UBS', 'DB', 'ING', 'CS', 'SAN', 'BBVA', 'BSBR', 'ITUB',
+            'BBD', 'SMFG', 'MFG', 'BK', 'NTRS', 'STT', 'AMP', 'LPLA', 'RJF', 'EVR'
+        ]
+
+        stocks = stocks + more_stocks
         
         # ETFs - Common ETFs available on Cash App
         etfs = [
@@ -98,6 +158,9 @@ class StockAnalyzer:
         try:
             stock = yf.Ticker(ticker)
             info = stock.info
+            if not info:
+                logger.info(f"No info returned for {ticker}; skipping.")
+                return None
             
             # Get cash flow statement for free cash flow
             try:
@@ -127,7 +190,7 @@ class StockAnalyzer:
             # Get revenue growth
             try:
                 revenue = income_stmt.loc['Total Revenue']
-                if len(revenue) >= 2:
+                if len(revenue) >= 2 and abs(revenue.iloc[1]) > 0:
                     revenue_growth = (revenue.iloc[0] - revenue.iloc[1]) / abs(revenue.iloc[1])
                 else:
                     revenue_growth = 0
@@ -163,6 +226,7 @@ class StockAnalyzer:
             # Get historical price data for momentum analysis
             hist = stock.history(period=self.analysis_period)
             if hist.empty or len(hist) < 30:  # Need at least 30 days of data
+                logger.info(f"Insufficient or no historical data for {ticker}; skipping.")
                 return None
                 
             # Calculate price momentum
@@ -304,31 +368,37 @@ class StockAnalyzer:
         
         return max(0, min(100, score))
     
-    def analyze_stocks(self) -> tuple[list[dict], list[dict]]:
+    def analyze_stocks(self, mode: str = "both") -> tuple[list[dict], list[dict]]:
         """
         Analyze all Cash App stocks and ETFs, returning separate recommendations.
         
         Returns:
             tuple: (top_stocks, top_etfs) - Lists of top stock and ETF recommendations
         """
-        # Get current date in a nice format for the initial log
         current_date = datetime.now().strftime('%A, %B %d, %Y')
-        logger.info(f"📅 Starting analysis on {current_date}...")
+        logger.info(f"Starting analysis on {current_date}...")
         
-        # Get all symbols and separate ETF list from initialized attributes
         all_symbols = self.cash_app_stocks
         etf_symbols = self.etfs
         
         analyzed_stocks = []
         analyzed_etfs = []
         
-        for i, ticker in enumerate(all_symbols, 1):
+        if mode == "stocks":
+            symbols_to_analyze = [s for s in all_symbols if not self._is_etf(s, etf_symbols)]
+        elif mode == "etfs":
+            symbols_to_analyze = etf_symbols
+        else:
+            symbols_to_analyze = all_symbols
+
+        total = len(symbols_to_analyze)
+
+        for i, ticker in enumerate(symbols_to_analyze, 1):
             is_etf = self._is_etf(ticker, etf_symbols)
             asset_type = "ETF" if is_etf else "Stock"
             
-            # Get current time in 12-hour format with AM/PM
             current_time = datetime.now().strftime('%I:%M %p')
-            logger.info(f"⏰ {current_time} - Analyzing {asset_type} {ticker} ({i}/{len(all_symbols)})...")
+            logger.info(f"Analyzing {asset_type} {ticker} ({i}/{total})")
             
             asset_data = self.get_financial_metrics(ticker)
             
@@ -593,10 +663,10 @@ on Cash App for easy investing.
     return "\n".join(report)
 
 
-def save_stock_report(asset: Dict, base_dir: str = "reports") -> str:
+def save_stock_report(asset: Dict, base_dir: str = "reports", is_etf: bool = None) -> str:
     """Save an individual stock or ETF report to its own folder."""
     ticker = asset['ticker']
-    is_etf = asset.get('is_etf', False)
+    is_etf = is_etf if is_etf is not None else asset.get('is_etf', False)
     asset_type = "etfs" if is_etf else "stocks"
     
     # Create appropriate directory structure
@@ -658,17 +728,21 @@ def save_report(report: str, filename: str = None, base_dir: str = "reports", is
     return filepath
 
 
-def schedule_analysis():
-    """Schedule the stock and ETF analysis to run bi-weekly."""
+def schedule_analysis(mode: str = "both"):
+    """Schedule the stock and/or ETF analysis to run bi-weekly.
+    
+    Args:
+        mode: "stocks", "etfs", or "both" (default "both").
+    """
     analyzer = StockAnalyzer()
     
     def run_analysis():
-        logger.info("Running scheduled stock and ETF analysis...")
-        top_stocks, top_etfs = analyzer.analyze_stocks()
+        logger.info(f"Running scheduled analysis (mode={mode})...")
+        top_stocks, top_etfs = analyzer.analyze_stocks(mode=mode)
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         
-        # Save stock report if we have stocks
-        if top_stocks:
+        # Save stock report if we have stocks and mode allows stocks
+        if top_stocks and mode in {"both", "stocks"}:
             stock_report = generate_report(top_stocks, is_etf=False)
             stock_report_path = save_report(stock_report, f"stocks_analysis_report_{timestamp}.md", is_etf=False)
             logger.info(f"Saved stock report to {os.path.abspath(stock_report_path)}")
@@ -680,8 +754,8 @@ def schedule_analysis():
             for i, stock in enumerate(top_stocks, 1):
                 print(f"{i}. {stock['company']} ({stock['ticker']}) - Score: {stock['final_score']:.1f}")
         
-        # Save ETF report if we have ETFs
-        if top_etfs:
+        # Save ETF report if we have ETFs and mode allows ETFs
+        if top_etfs and mode in {"both", "etfs"}:
             etf_report = generate_report(top_etfs, is_etf=True)
             etf_report_path = save_report(etf_report, f"etfs_analysis_report_{timestamp}.md", is_etf=True)
             logger.info(f"Saved ETF report to {os.path.abspath(etf_report_path)}")
@@ -762,6 +836,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Numbers.AI - Smart Stock Analysis Bot')
     parser.add_argument('--run-once', action='store_true', help='Run analysis once and exit')
     parser.add_argument('--schedule', action='store_true', help='Run analysis on a schedule (every 2 weeks)')
+    parser.add_argument('--mode', choices=['stocks', 'etfs', 'both'], default='both',
+                        help='What to analyze: only stocks, only ETFs, or both (default)')
     
     args = parser.parse_args()
     
@@ -789,12 +865,12 @@ if __name__ == "__main__":
     
     # If we get here, the market is open
     if args.schedule:
-        schedule_analysis()
+        schedule_analysis(mode=args.mode)
     else:
         # Run once by default
         analyzer = StockAnalyzer()
-        print("\n🔍 Analyzing stocks and ETFs...")
-        top_stocks, top_etfs = analyzer.analyze_stocks()
+        print(f"\n🔍 Analyzing mode: {args.mode}...")
+        top_stocks, top_etfs = analyzer.analyze_stocks(mode=args.mode)
         
         if not top_stocks and not top_etfs:
             print("\n❌ No assets met the analysis criteria. Please check the logs for more information.")
@@ -803,11 +879,11 @@ if __name__ == "__main__":
         # Generate and save reports
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-        # Decide display order based on user choice
+        # Decide display order based on user choice (only matters if both are being analyzed)
         show_stocks_first = (choice == "1")
 
         def print_stocks_section():
-            if top_stocks:
+            if top_stocks and args.mode in {"both", "stocks"}:
                 stock_report = generate_report(top_stocks, is_etf=False)
                 stock_report_path = save_report(stock_report, f"stocks_analysis_report_{timestamp}.md", is_etf=False)
                 print("\n" + "="*80)
@@ -818,7 +894,7 @@ if __name__ == "__main__":
                 print(f"\n📄 Stock report saved to: {os.path.abspath(stock_report_path)}")
 
         def print_etfs_section():
-            if top_etfs:
+            if top_etfs and args.mode in {"both", "etfs"}:
                 etf_report = generate_report(top_etfs, is_etf=True)
                 etf_report_path = save_report(etf_report, f"etfs_analysis_report_{timestamp}.md", is_etf=True)
                 print("\n" + "="*80)
@@ -828,12 +904,17 @@ if __name__ == "__main__":
                     print(f"{i}. {etf.get('company', etf['ticker'])} ({etf['ticker']}) - Score: {etf['final_score']:.1f}")
                 print(f"\n📄 ETF report saved to: {os.path.abspath(etf_report_path)}")
 
-        if show_stocks_first:
+        if args.mode == "stocks":
             print_stocks_section()
+        elif args.mode == "etfs":
             print_etfs_section()
         else:
-            print_etfs_section()
-            print_stocks_section()
+            if show_stocks_first:
+                print_stocks_section()
+                print_etfs_section()
+            else:
+                print_etfs_section()
+                print_stocks_section()
         
         print("\n" + "-"*80)
         print("💡 Tip: Check the individual asset reports for detailed analysis and risk assessment")
