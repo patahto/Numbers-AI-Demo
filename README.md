@@ -92,7 +92,7 @@ sudo apt install -y build-essential libssl-dev zlib1g-dev \
    cd Numbers.AI
    ```
 
-2. Set up a virtual environment (recommended):
+2. Set up a virtual environment (recommended/not needed):
    ```bash
    # On Windows
    python -m venv venv
@@ -175,7 +175,7 @@ To stop the bot at any time:
 ## How the Bot Finds Stocks
 
 ### 1. Initial Screening
-- **Source**: Analyzes a curated list of 150+ stocks and ETFs from major indices and sectors
+- **Source**: Analyzes a curated list of stocks and ETFs from major indices and sectors
 - **Market Cap**: Focuses on companies with at least $1B market capitalization
 - **Liquidity**: Ensures stocks have sufficient trading volume for easy entry/exit
 
@@ -242,7 +242,3 @@ The bot generates detailed markdown reports with:
 ## Disclaimer
 
 This tool is for educational and informational purposes only. It is not intended as financial advice. Always conduct your own research and consider your financial situation before making investment decisions. Past performance is not indicative of future results.
-
-## License
-
-MIT License - Feel free to use and modify for personal or commercial use.
