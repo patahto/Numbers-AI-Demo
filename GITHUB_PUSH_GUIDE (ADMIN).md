@@ -22,6 +22,38 @@ git commit -m "Your descriptive message here"
 ```
 Example: `git commit -m "Add new stock analysis features and update reports"`
 
+**How to Write Good Commit Messages:**
+
+#### Format: `[Type]: Brief description (50 chars or less)`
+
+**Common Types:**
+- `feat:` - New features or functionality
+- `fix:` - Bug fixes or error corrections  
+- `update:` - Updates to existing code/data
+- `docs:` - Documentation changes
+- `refactor:` - Code restructuring (no functional change)
+- `remove:` - Deleting files or features
+
+**Examples for Numbers.AI:**
+```bash
+git commit -m "feat: Add profit timing analysis for stocks"
+git commit -m "fix: Resolve data parsing errors for ETF reports"
+git commit -m "update: Refresh stock list with latest market data"
+git commit -m "docs: Add GitHub push guide and dependency explanations"
+git commit -m "refactor: Optimize financial calculations for better performance"
+git commit -m "remove: Delete backup files and clean up repository"
+```
+
+**What to Include:**
+- **What changed**: "Add RSI indicator", "Fix memory leak"
+- **Why changed**: "to improve analysis accuracy", "to prevent crashes"
+- **Keep it concise**: One clear sentence is ideal
+
+**What to Avoid:**
+- Vague messages like "update files" or "changes"
+- Multiple unrelated changes in one commit
+- Very long descriptions (save details for code comments)
+
 ### 4. Push to GitHub
 ```bash
 git push origin main
