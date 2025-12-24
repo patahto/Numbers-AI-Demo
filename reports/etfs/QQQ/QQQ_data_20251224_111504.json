@@ -1,0 +1,33 @@
+{
+  "ticker": "QQQ",
+  "company": "Invesco QQQ Trust, Series 1",
+  "sector": "N/A",
+  "price": 623.98,
+  "market_cap": 245286535168,
+  "revenue_growth": 0,
+  "net_margin": 0,
+  "gross_margin": 0,
+  "operating_margin": 0,
+  "debt_to_equity": 0.0,
+  "current_ratio": 0,
+  "free_cash_flow": 0,
+  "one_year_return": 0.19942736963824848,
+  "volatility": 0.2267528534089586,
+  "sharpe_ratio": 0.6724058624049296,
+  "rsi": 51.50983202293071,
+  "macd": 1.663008908409438,
+  "macd_signal": 1.2670486132512306,
+  "price_to_support": 4.08207776221019,
+  "volume_trend": -76.08989722254675,
+  "momentum_score": 85,
+  "is_etf": true,
+  "growth_score": 45.5,
+  "profit_timing": {
+    "estimated_days_10_percent": 12,
+    "estimated_days_15_percent": 18,
+    "confidence_level": "High",
+    "methodology": "Based on historical positive return patterns and trend consistency"
+  },
+  "technical_score": 30,
+  "final_score": 37.75
+}

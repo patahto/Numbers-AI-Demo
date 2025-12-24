@@ -1,0 +1,33 @@
+{
+  "ticker": "VTI",
+  "company": "Vanguard Total Stock Market ETF",
+  "sector": "N/A",
+  "price": 338.7,
+  "market_cap": 702369038336,
+  "revenue_growth": 0,
+  "net_margin": 0,
+  "gross_margin": 0,
+  "operating_margin": 0,
+  "debt_to_equity": 0.0,
+  "current_ratio": 0,
+  "free_cash_flow": 0,
+  "one_year_return": 0.17272863196723942,
+  "volatility": 0.1750141196663321,
+  "sharpe_ratio": 0.7023736849017481,
+  "rsi": 56.43823569033838,
+  "macd": 1.4309986908638166,
+  "macd_signal": 1.3203693460255685,
+  "price_to_support": 3.948075665837547,
+  "volume_trend": -26.471703374555,
+  "momentum_score": 85,
+  "is_etf": true,
+  "growth_score": 45.5,
+  "profit_timing": {
+    "estimated_days_10_percent": 15,
+    "estimated_days_15_percent": 23,
+    "confidence_level": "High",
+    "methodology": "Based on historical positive return patterns and trend consistency"
+  },
+  "technical_score": 30,
+  "final_score": 37.75
+}

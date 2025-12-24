@@ -1,0 +1,33 @@
+{
+  "ticker": "WDC",
+  "company": "Western Digital Corporation",
+  "sector": "Technology",
+  "price": 177.33,
+  "market_cap": 60787929088,
+  "revenue_growth": 0.5070444831407314,
+  "net_margin": 0.19548319327731092,
+  "gross_margin": 0.3878151260504202,
+  "operating_margin": 0.22373949579831934,
+  "debt_to_equity": 0.0,
+  "current_ratio": 1.080841638981174,
+  "free_cash_flow": 1279000000.0,
+  "one_year_return": 2.909488183817782,
+  "volatility": 0.4526922780845439,
+  "sharpe_ratio": 0.8697067580140319,
+  "rsi": 64.02590967828829,
+  "macd": 6.965443593366842,
+  "macd_signal": 7.312019195536175,
+  "price_to_support": 20.157477414886984,
+  "volume_trend": -76.73944875046934,
+  "momentum_score": 80,
+  "is_etf": false,
+  "growth_score": 94.0,
+  "profit_timing": {
+    "estimated_days_10_percent": 6,
+    "estimated_days_15_percent": 8,
+    "confidence_level": "Medium",
+    "methodology": "Based on historical positive return patterns and trend consistency"
+  },
+  "technical_score": 5,
+  "final_score": 67.3
+}

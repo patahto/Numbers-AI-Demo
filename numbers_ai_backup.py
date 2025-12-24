@@ -712,17 +712,9 @@ on Cash App for easy investing.
                 ("(Neutral)" if 30 <= float(rsi) <= 70 else "(Overbought/Oversold)"),
             f"- **MACD:** {macd_signal}",
             f"- **Price to Support:** {asset['price_to_support']:.1f}%",
-            f"- **Volume Trend:** {'↑' if asset['volume_trend'] > 0 else '↓'} {abs(asset['volume_trend']):.1f}%"])
-        # Add profit timing information
-        profit_timing = asset.get('profit_timing', {})
-        if profit_timing:
-            report.extend([
-                "\n### 💰 Profit Timing",
-                f"- **10% Profit Target:** {profit_timing.get('estimated_days_10_percent', 'N/A')} days (Confidence: {profit_timing.get('confidence_level', 'N/A')})",
-                f"- **15% Profit Target:** {profit_timing.get('estimated_days_15_percent', 'N/A')} days (Confidence: {profit_timing.get('confidence_level', 'N/A')})"
-            ])
-        report.append("\n### ⚠️ Risk Assessment")
-
+            f"- **Volume Trend:** {'↑' if asset['volume_trend'] > 0 else '↓'} {abs(asset['volume_trend']):.1f}%"
+                report.append("\n### ⚠️ Risk Assessment")
+        
         # Common risk factors
         risk_factors = []
         if asset.get('volatility', 0) > 0.5:

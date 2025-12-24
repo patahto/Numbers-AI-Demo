@@ -1,0 +1,33 @@
+{
+  "ticker": "INTU",
+  "company": "Intuit Inc.",
+  "sector": "Technology",
+  "price": 675.2,
+  "market_cap": 187975680000,
+  "revenue_growth": 0.15634019035922628,
+  "net_margin": 0.2054590834262652,
+  "gross_margin": 0.7956560989857151,
+  "operating_margin": 0.2622271785884977,
+  "debt_to_equity": 0.0,
+  "current_ratio": 1.3603664416586307,
+  "free_cash_flow": 6083000000.0,
+  "one_year_return": 0.06494119889193262,
+  "volatility": 0.33930963489076454,
+  "sharpe_ratio": 0.4675190471195454,
+  "rsi": 55.546455390027425,
+  "macd": 4.971497451910864,
+  "macd_signal": 3.0264735751873837,
+  "price_to_support": 8.949367566011702,
+  "volume_trend": -92.69243254228931,
+  "momentum_score": 65,
+  "is_etf": false,
+  "growth_score": 68.12225881430915,
+  "profit_timing": {
+    "estimated_days_10_percent": 10,
+    "estimated_days_15_percent": 15,
+    "confidence_level": "Medium",
+    "methodology": "Based on historical positive return patterns and trend consistency"
+  },
+  "technical_score": 30,
+  "final_score": 56.6855811700164
+}
