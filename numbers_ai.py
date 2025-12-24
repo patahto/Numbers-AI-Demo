@@ -904,6 +904,29 @@ def handle_keyboard_interrupt(signum, frame):
     sys.exit(0)
 
 
+def get_holiday_greeting() -> str:
+    """Get a holiday greeting based on the current date."""
+    today = datetime.now()
+    month = today.month
+    day = today.day
+    
+    # Christmas (Dec 24-25)
+    if month == 12 and day in [24, 25]:
+        return "Merry Christmas! 🎄 Let's get to investing. 💰"
+    # New Year's (Jan 1)
+    elif month == 1 and day == 1:
+        return "Happy New Year! 🎉 Let's get to investing. 💰"
+    # Independence Day (July 4)
+    elif month == 7 and day == 4:
+        return "Happy Independence Day! 🇺🇸 Let's get to investing. 💰"
+    # Thanksgiving (4th Thursday in Nov, but approximate around Nov 22-28)
+    elif month == 11 and 22 <= day <= 28:
+        return "Happy Thanksgiving! 🦃 Let's get to investing. 💰"
+    # Default
+    else:
+        return "Welcome! You're about to unlock a new level of financial empowerment."
+
+
 def get_user_choice() -> str:
     """Prompt the user to choose which analysis to view first."""
     while True:
@@ -930,8 +953,9 @@ if __name__ == "__main__":
     signal.signal(signal.SIGINT, handle_keyboard_interrupt)
     
     # Welcome message
+    greeting = get_holiday_greeting()
     print("\n" + "="*80)
-    print("💲 Welcome! You're about to unlock a new level of financial empowerment.")
+    print(f"💲 {greeting}")
     print("   Learn, Invest, and Grow!")
     print("="*80 + "\n")
     
