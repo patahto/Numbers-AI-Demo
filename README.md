@@ -21,8 +21,8 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
    > 💡 **Important Notes**:
    > - If you encounter build errors, ensure all system dependencies are installed
    > - On Windows, you might need to run the terminal as Administrator
-   > - Works for the three main operating system: Windows, Mac, Linux
-   > - 
+   > - ONLY works for the three main operating system: Windows, Mac, and Linux
+  
 ## How the Bot Finds Stocks
 
 ### 1. Initial Screening
