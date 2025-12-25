@@ -17,14 +17,12 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 - To buy the full version of Numbers.AI, email/contact me.
 - As a DEMO, you are only seeing a preview and not the full thing. The bot's code isn't included in the demo to prevent illegal redistribution.
 
+
    > 💡 **Important Notes**:
-   > - Always activate your virtual environment before running the script
    > - If you encounter build errors, ensure all system dependencies are installed
    > - On Windows, you might need to run the terminal as Administrator
-   > - For performance, consider using `--no-cache-dir` with pip if you have limited disk space
-   > - To deactivate the virtual environment, type `deactivate` in the terminal
-
-
+   > - Works for the three main operating system: Windows, Mac, Linux
+   > - 
 ## How the Bot Finds Stocks
 
 ### 1. Initial Screening
