@@ -5,7 +5,6 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 ## Features
 
 - **Comprehensive Analysis**: Evaluates stocks based on growth potential, financial health, and technical indicators
-- **Cash App Integration**: Focuses on stocks available on Cash App for easy investing
 - **Automated Scheduling**: Can be set to run analysis bi-weekly
 - **Detailed Reports**: Generates markdown reports with in-depth analysis
 - **Technical Indicators**: Uses RSI, MACD, support/resistance levels, and volume analysis
