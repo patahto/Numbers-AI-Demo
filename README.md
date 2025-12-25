@@ -15,7 +15,8 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 
 - Numbers.AI is removed in the demo. Full functionality is available via private repository.
 - To buy the full version of Numbers.AI, email/contact me.
-- As a DEMO, you are only seeing a preview and not the full thing. The bot's code isn't included in the demo to prevent illegal redistribution.
+- As a **DEMO**, you are only seeing a preview and not the full thing. The bot's code isn't included in the demo to **prevent** illegal redistribution.
+- If you are planning on buying, **make sure** you have a GitHub account.
 
 
    > 💡 **Important Notes**:
@@ -26,7 +27,7 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 ## How the Bot Finds Stocks
 
 ### 1. Initial Screening
-- **Source**: Analyzes a curated list of 150+ stocks and ETFs from major indices and sectors
+- **Source**: Analyzes a curated list of stocks and ETFs from major indices and sectors
 - **Market Cap**: Focuses on companies with at least $1B market capitalization
 - **Liquidity**: Ensures stocks have sufficient trading volume for easy entry/exit
 
@@ -80,6 +81,7 @@ Creates detailed reports including:
 - Technical analysis charts
 - Risk evaluation
 - Investment thesis
+- Profit goal timings
 
 ## Output
 
@@ -89,6 +91,7 @@ The bot generates detailed markdown reports with:
 - Technical indicators and charts
 - Risk assessment
 - Investment thesis
+- Profit goal timings
 
 ## Disclaimer
 
