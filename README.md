@@ -13,7 +13,7 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 ## Heads Up
 
 - Numbers.AI is removed in the demo. Full functionality is available via private repository.
-- To buy the full version of Numbers.AI, email/contact me.
+- To buy the full version of Numbers.AI, email/contact me and we'll discuss prices.
 - As a **DEMO**, you are only seeing a preview and not the full thing. The bot's code isn't included in the demo to **prevent** illegal redistribution.
 - If you are planning on buying, **make sure** you have a GitHub account.
 
