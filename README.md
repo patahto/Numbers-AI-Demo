@@ -11,6 +11,12 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 - **Technical Indicators**: Uses RSI, MACD, support/resistance levels, and volume analysis
 - **Financial Metrics**: Analyzes revenue growth, profit margins, debt levels, and more
 
+## Heads Up
+
+- Numbers.AI is removed in the demo. Full functionality is available via private repository.
+- To buy the full version of Numbers.AI, email/contact me.
+- As a DEMO, you are only seeing a preview and not the full thing. The bot's code isn't included in the demo to prevent illegal redistribution.
+
 ## Prerequisites
 
 ### Python 3.12 Installation
@@ -241,8 +247,11 @@ The bot generates detailed markdown reports with:
 
 ## Disclaimer
 
-This tool is for educational and informational purposes only. It is not intended as financial advice. Always conduct your own research and consider your financial situation before making investment decisions. Past performance is not indicative of future results.
+- This tool is for educational and informational purposes only. 
+- It is not intended as financial advice. 
+- Always conduct your own research and consider your financial situation before making investment decisions. 
+- Past performance is not indicative of future results.
 
 ## License
 
-MIT License - Feel free to use and modify for personal or commercial use.
+See LICENSE.md for license information.
