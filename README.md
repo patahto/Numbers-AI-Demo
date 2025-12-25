@@ -5,7 +5,6 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 ## Features
 
 - **Comprehensive Analysis**: Evaluates stocks based on growth potential, financial health, and technical indicators
-- **Automated Scheduling**: Can be set to run analysis bi-weekly
 - **Detailed Reports**: Generates markdown reports with in-depth analysis
 - **Technical Indicators**: Uses RSI, MACD, support/resistance levels, and volume analysis
 - **Financial Metrics**: Analyzes revenue growth, profit margins, debt levels, and more
@@ -20,7 +19,7 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 
 
    > 💡 **Important Note**:
-   > - ONLY works for the three main operating system: Windows, Mac, and Linux
+   > - ONLY works for the three main operating systems: Windows, Mac, and Linux
   
 ## How the Bot Finds Stocks
 
