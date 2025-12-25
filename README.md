@@ -60,6 +60,61 @@ The bot examines:
   - Breakout patterns
   - Volume at price
 
+## Technical Requirements & Dependencies
+
+### Core Data Libraries
+- **`yfinance>=0.2.33`** - Primary stock data source from Yahoo Finance
+  - Fetches real-time and historical stock prices, financial statements, and market data
+  - Provides company information, earnings data, and key financial metrics
+
+- **`pandas>=2.1.0`** - Data manipulation and analysis
+  - Organizes stock data into structured DataFrames for analysis
+  - Handles time-series data for price trends and financial metrics
+
+- **`numpy>=1.26.0`** - Numerical computations
+  - Performs mathematical calculations for technical indicators (RSI, MACD, moving averages)
+  - Supports array operations for large datasets
+
+### Data Acquisition & Processing
+- **`requests>=2.31.0`** - HTTP requests for web data
+  - Fetches additional market data from financial APIs
+  - Retrieves news and sentiment data for stock analysis
+
+- **`beautifulsoup4>=4.12.2`** - Web scraping
+  - Extracts financial data from financial websites and news sources
+  - Gathers alternative data sources for comprehensive analysis
+
+- **`pandas-datareader>=0.10.0`** - Additional financial data sources
+  - Accesses data from Federal Reserve (FRED), World Bank, and other financial databases
+  - Provides economic indicators that affect stock performance
+
+### Analysis & Machine Learning
+- **`scikit-learn>=1.3.0`** - Machine learning algorithms
+  - Implements predictive models for stock price movements
+  - Performs pattern recognition and anomaly detection in stock behavior
+
+### Utility & Scheduling
+- **`python-dotenv>=1.0.0`** - Environment variable management
+  - Securely handles API keys and configuration settings
+  - Manages database credentials and external service connections
+
+- **`schedule>=1.2.0`** - Task scheduling
+  - Automates bi-weekly stock analysis runs
+  - Ensures regular market monitoring without manual intervention
+
+### How Dependencies Work Together for Stock Finding
+
+These libraries create a complete stock analysis pipeline:
+
+1. **Data Collection** (`yfinance`, `requests`, `pandas-datareader`) - Gather comprehensive market data
+2. **Data Processing** (`pandas`, `numpy`) - Structure and calculate financial metrics
+3. **Advanced Analysis** (`scikit-learn`) - Apply ML models for prediction
+4. **Web Intelligence** (`beautifulsoup4`) - Extract insights from financial news
+5. **Automation** (`schedule`) - Regular analysis execution
+6. **Security** (`python-dotenv`) - Safe credential management
+
+The combination enables the bot to perform the fundamental and technical analysis described in the "How the Bot Finds Stocks" section above.
+
 ### 4. Risk Assessment
 - **Red Flags**:
   - High debt levels
