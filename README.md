@@ -98,7 +98,7 @@ sudo apt install -y build-essential libssl-dev zlib1g-dev \
    cd Numbers.AI
    ```
 
-2. Set up a virtual environment (recommended/not needed):
+2. Set up a virtual environment (recommended):
    ```bash
    # On Windows
    python -m venv venv
@@ -128,69 +128,6 @@ sudo apt install -y build-essential libssl-dev zlib1g-dev \
    > - On Windows, you might need to run the terminal as Administrator
    > - For performance, consider using `--no-cache-dir` with pip if you have limited disk space
    > - To deactivate the virtual environment, type `deactivate` in the terminal
-
-## Dependencies (requirements.txt)
-
-The bot relies on several key Python packages to function properly. Here's what each dependency does and how it contributes to the bot's functionality:
-
-### Core Data Analysis Libraries
-
-**pandas>=2.1.0**
-- **Purpose**: Data manipulation and analysis framework
-- **How it helps**: Handles financial data processing, time series analysis, and data structuring. Used for organizing stock data, calculating financial ratios, and managing historical price data efficiently.
-
-**numpy>=1.26.0**
-- **Purpose**: Numerical computing and mathematical operations
-- **How it helps**: Provides the mathematical foundation for calculations like moving averages, statistical analysis, and array operations essential for technical indicators.
-
-### Financial Data Sources
-
-**yfinance>=0.2.33**
-- **Purpose**: Yahoo Finance API wrapper for stock data
-- **How it helps**: Fetches real-time and historical stock prices, financial statements, company information, and market data. This is the primary data source for all stock analysis.
-
-**pandas-datareader>=0.10.0**
-- **Purpose**: Additional financial data sources
-- **How it helps**: Provides access to multiple financial data sources and serves as a backup data retrieval method when Yahoo Finance is unavailable.
-
-### Web Scraping and HTTP
-
-**requests>=2.31.0**
-- **Purpose**: HTTP library for making web requests
-- **How it helps**: Handles API calls, web scraping for additional company information, and fetching market news that might influence stock analysis.
-
-**beautifulsoup4>=4.12.2**
-- **Purpose**: HTML and XML parsing library
-- **How it helps**: Extracts relevant information from financial websites, company pages, and news sources to supplement the analysis with qualitative data.
-
-### Machine Learning and Analytics
-
-**scikit-learn>=1.3.0**
-- **Purpose**: Machine learning and data preprocessing
-- **How it helps**: Used for data normalization, feature scaling, and potentially implementing predictive models for stock price movements and trend analysis.
-
-### Automation and Environment
-
-**schedule>=1.2.0**
-- **Purpose**: Job scheduling library
-- **How it helps**: Enables automated bi-weekly analysis runs, allowing the bot to operate continuously without manual intervention.
-
-**python-dotenv>=1.0.0**
-- **Purpose**: Environment variable management
-- **How it helps**: Manages configuration settings, API keys, and sensitive information securely without hardcoding them in the script.
-
-### Why These Versions Matter
-
-- **Minimum versions ensure compatibility**: Each package version is tested to work together without conflicts
-- **Feature availability**: Newer versions include important features like improved data handling and bug fixes
-- **Security**: Recent versions include security patches for financial data handling
-- **Performance**: Optimized versions provide faster data processing and analysis
-
-### Installation Notes
-
-- All packages are automatically installed with `pip install -r requirements.txt`
-- The versions specified are minimums - newer compatible versions will also work
-- Some packages may require system-level dependencies (detailed in the Prerequisites section)
 
 ## Usage
 
@@ -244,7 +181,7 @@ To stop the bot at any time:
 ## How the Bot Finds Stocks
 
 ### 1. Initial Screening
-- **Source**: Analyzes a curated list of stocks and ETFs from major indices and sectors
+- **Source**: Analyzes a curated list of 150+ stocks and ETFs from major indices and sectors
 - **Market Cap**: Focuses on companies with at least $1B market capitalization
 - **Liquidity**: Ensures stocks have sufficient trading volume for easy entry/exit
 
@@ -314,3 +251,7 @@ The bot generates detailed markdown reports with:
 - It is not intended as financial advice. 
 - Always conduct your own research and consider your financial situation before making investment decisions. 
 - Past performance is not indicative of future results.
+
+## License
+
+See LICENSE.md for license information.
