@@ -18,9 +18,7 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 - If you are planning on buying, **make sure** you have a GitHub account.
 
 
-   > 💡 **Important Notes**:
-   > - If you encounter build errors, ensure all system dependencies are installed
-   > - On Windows, you might need to run the terminal as Administrator
+   > 💡 **Important Note**:
    > - ONLY works for the three main operating system: Windows, Mac, and Linux
   
 ## How the Bot Finds Stocks
