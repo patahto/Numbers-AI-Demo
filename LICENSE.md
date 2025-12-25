@@ -12,5 +12,5 @@ This software is licensed for personal, educational use only.
 - Claim this software as your own work
 
 ## Disclaimer:
-No guarantees of financial performance are made.
+No guarantees of subtantial financial performance are made.
 The creator is not responsible for any financial losses.
