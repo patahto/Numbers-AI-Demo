@@ -202,7 +202,6 @@ The bot evaluates:
   - Operating margin
   - Return on Equity (ROE)
 - **Financial Health**:
-  - Debt-to-Equity ratio
   - Current ratio
   - Interest coverage
 
