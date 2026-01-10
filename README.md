@@ -9,7 +9,7 @@ Numbers.AI is an intelligent stock analysis tool designed to help long-term inve
 - **Technical Indicators**: Uses RSI, MACD, support/resistance levels, and volume analysis
 - **Financial Metrics**: Analyzes revenue growth, profit margins, debt levels, and more
 
-<<<<<<< HEAD
+
 ## Prerequisites
 
 ### Python 3.12 Installation
@@ -179,7 +179,6 @@ To stop the bot at any time:
 - If you are planning on buying, **make sure** you have a GitHub account.
 - This is a **helper**, **not** an online brokage. Access to an online brokage like Cash App, Fidelity, Robinhood, etc. are **HIGHLY** recommended.
 
->>>>>>> 358b1899cc4c1e92ad4831983a46d92c3f6bcc12
 
    > 💡 **Important Note**:
    > - ONLY works for the three main operating systems: Windows, Mac, and Linux
@@ -187,8 +186,8 @@ To stop the bot at any time:
 ## How the Bot Finds Stocks
 
 ### 1. Initial Screening
-- **Source**: Analyzes a curated list of stocks and ETFs from major indices and sectors
-- **Market Cap**: Focuses on companies with at least $1B market capitalization
+- **Source**: Analyzes a curated list of stocks from major indices and sectors
+- **Market Cap**: Focuses on companies with at least $500M market capitalization
 - **Liquidity**: Ensures stocks have sufficient trading volume for easy entry/exit
 
 ### 2. Fundamental Analysis (70% Weight)
