@@ -177,7 +177,7 @@ To stop the bot at any time:
 - To buy the full version of Numbers.AI, email/contact me and we'll discuss prices.
 - As a **DEMO**, you are only seeing a preview and not the full thing. The bot's code isn't included in the demo to **prevent** illegal redistribution.
 - If you are planning on buying, **make sure** you have a GitHub account.
-- This is a **helper**, **not** an online brokage. Access to an online brokage like Cash App, Fidelity, Robinhood, etc. are **HIGHLY** recommended.
+- This is a **helper**, **not** an online brokage. Access to an online brokage like Cash App, Fidelity, Robinhood, etc. is **HIGHLY** recommended.
 
 
    > 💡 **Important Note**:
